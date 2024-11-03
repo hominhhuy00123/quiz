@@ -1,0 +1,586 @@
+// Global component styles
+body {
+    overflow-x: hidden;
+    &.sidebar-toggled {
+        overflow: hidden;
+    }
+}
+a {
+    &.bg-secondary {
+        &:focus, &:hover {
+            background: $maincolor !important;
+        }
+    }
+
+    &:focus, &:hover {
+        outline: none;
+        text-decoration: none;
+        color: $activecolor;
+
+        .text-body {
+            color: $activecolor !important;
+        }
+    }
+}
+.text-overflow {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.hidden-xs {
+    @media (max-width: 320px) {
+        display: none
+    }
+}
+.image-wrapper-16y9 {
+    position: relative;
+    width: 100%;
+    padding-top: 56%;
+    overflow: hidden;
+    background-color: $gray-200;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+}
+
+.image-wrapper-4y3 {
+    position: relative;
+    width: 100%;
+    padding-top: 75%;
+    overflow: hidden;
+    background-color: $gray-200;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+}
+
+.image-wrapper-3y2 {
+    position: relative;
+    width: 100%;
+    padding-top: 66.66%;
+    overflow: hidden;
+    background-color: $gray-200;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+}
+
+.image-wrapper-1y1 {
+    position: relative;
+    width: 100%;
+    padding-top: 100%;
+    overflow: hidden;
+    background-color: $gray-200;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+}
+
+.p-section {
+    padding-top: 70px;
+    padding-bottom: 70px;
+}
+.disabled-z {
+    pointer-events: none;
+    cursor: default;
+    background-color: lightgray;
+}
+
+.required-z::after {
+    content: "*";
+    color: #F4516C;
+}
+main {
+  @include media-breakpoint-down(lg) {
+    overflow: hidden;
+  }
+}
+.text-green {
+    color: $activecolor;
+}
+.text-primary {
+    color: $maincolor;
+}
+.text-black-800 {
+    color: $black-800 !important
+}
+.bg-secondary {
+    background: $activecolor !important;
+}
+a.bg-secondary {
+    &:hover {
+        background: $maincolor !important;
+    }
+}
+.bg-green-100 {
+    background: $green-100 !important;
+}
+.roudedRtb {
+    border-radius: $border-radius-rtb;
+}
+// Set container padding to match gutter width instead of default 15px
+.container,
+.container-fluid {
+    padding-left: $grid-gutter-width;
+    padding-right: $grid-gutter-width;
+}
+.border-right {
+    @include media-breakpoint-down(lg) {
+        border-right: 0 !important;
+    }
+}
+@media (max-width: 767px) {
+    .pr-xs-0 {
+        padding-right: 0 !important
+    }
+    .pb-xs-1 {
+        padding-bottom: 1rem !important;
+    }
+    .mt-xs-1 {
+        margin-top: 1rem !important;
+    }
+}
+.menu-wrapper-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    overflow: hidden;
+    z-index: 998;
+    transition: all ease 0.4s;
+    background: rgba(0, 0, 0, 0.5);
+    -webkit-animation: animation-offcanvas-fade-in 0.6s ease 1;
+    animation: animation-offcanvas-fade-in 0.6s ease 1;
+}
+
+@-webkit-keyframes animation-offcanvas-fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes animation-offcanvas-fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+// Scroll to top button
+.scroll-to-top {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    display: none;
+    width: 2.75rem;
+    height: 2.75rem;
+    text-align: center;
+    color: $white;
+    background: fade-out($gray-800, 0.5);
+    line-height: 46px;
+
+    &:focus,
+    &:hover {
+        color: white;
+    }
+
+    &:hover {
+        background: $gray-800;
+    }
+
+    i {
+        font-weight: 800;
+    }
+}
+.post-item {
+  .thubnail {
+    position: relative;
+    overflow: hidden;
+    background-color: $activecolor;
+    &.aspect-ratio-rectangle {
+      padding-top: 61%;
+    }
+    &.aspect-ratio-square {
+      padding-top: 100%;
+    }
+    img {
+      position: absolute;
+      width: 101%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+  &:hover a{
+    img {
+      -webkit-filter: opacity(0.5);
+      filter: opacity(0.5);
+    }
+  }
+}
+
+.overlays-svg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.close-absolute {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    z-index: 1;
+    font-size: 2rem;
+}
+.badge-sold {
+    color: white;
+    background-color: #ff2626;
+}
+.badge-underOffer {
+    color: #212529;
+    background-color: #ff9800;
+}
+.badge-deposit {
+    color: #212529;
+    background-color: #FFEB3B;
+}
+.badge-available {
+    color: #fff;
+    background-color: #28a745;
+}
+
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    border-radius: 0;
+    background-color: #eee;
+    padding-left: 20px;
+}
+
+::-webkit-scrollbar-thumb:vertical { //height
+    border-radius: 0;
+    background: rgba(0, 0, 0, 0.5);
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb:horizontal { //width
+    border-radius: 0;
+    background: #979797;
+    height: 10px;
+}
+
+::-webkit-scrollbar-corner {
+    background-color: #252235;
+}
+
+::-webkit-scrollbar:horizontal {
+    display: none;
+    width: 0;
+    height: 0;
+    opacity: 0
+}
+
+::-webkit-scrollbar:horizontal {
+    display: none;
+    width: 0;
+    height: 0;
+    opacity: 0
+}
+
+.img-cover {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    object-position: center;
+}
+.img-contain {
+    object-fit: contain !important;
+    object-position: center;
+}
+.wrap-scaling circle:nth-of-type(1) {
+    animation: scaling 1.6s linear infinite;
+    animation-delay: 0.8s;
+    fill: #ffffff;
+    transform-origin: 50% 50%;
+    transform-box: fill-box;
+}
+
+.wrap-scaling circle:nth-of-type(2) {
+    animation: scaling 1.6s linear infinite;
+    opacity: 1;
+    transform-origin: 50% 50%;
+    transform-box: fill-box;
+    stroke: #ffffff;
+    stroke-miterlimit: 1;
+}
+
+@keyframes scaling {
+    0% {
+        transform: scale(1.0);
+    }
+
+    50% {
+        transform: scale(1.4);
+    }
+
+    100% {
+        transform: scale(1.0);
+    }
+}
+
+.block-link:hover {
+    cursor: pointer;
+}
+
+//Loading start
+.loader {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    background:$green-50;
+}
+.loading {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: $gray-300;
+    z-index: 9999;
+    width: 100%;
+    height: 100%;
+
+    .dot {
+        width: 16px;
+        height: 16px;
+        left: 15px;
+        background: $maincolor;
+        border-radius: 50%;
+        transform: translateX(0);
+        animation: dot 2.8s infinite;
+    }
+
+    .dots {
+        transform: translateX(0);
+        animation: dots 2.8s infinite;
+
+        span {
+            display: block;
+            float: left;
+            width: 16px;
+            height: 16px;
+            margin-left: 16px;
+            background: $maincolor;
+            border-radius: 50%;
+        }
+    }
+}
+
+
+
+@-moz-keyframes dot {
+    50% {
+        transform: translateX(96px);
+    }
+}
+
+@-webkit-keyframes dot {
+    50% {
+        transform: translateX(96px);
+    }
+}
+
+@-o-keyframes dot {
+    50% {
+        transform: translateX(96px);
+    }
+}
+
+@keyframes dot {
+    50% {
+        transform: translateX(96px);
+    }
+}
+
+@-moz-keyframes dots {
+    50% {
+        transform: translateX(-31px);
+    }
+}
+
+@-webkit-keyframes dots {
+    50% {
+        transform: translateX(-31px);
+    }
+}
+
+@-o-keyframes dots {
+    50% {
+        transform: translateX(-31px);
+    }
+}
+
+@keyframes dots {
+    50% {
+        transform: translateX(-31px);
+    }
+}
+//Loading end
+
+
+.compare-img {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+    text-align: center;
+
+    @media (min-width: 1024px) and (max-width: 1366px) and (orientation: portrait) {
+        height: 70vh !important;
+        align-items: center;
+    }
+
+    .beer-slider {
+
+
+        @media (min-width: 1024px) and (max-width: 1366px) and (orientation: portrait) {
+            height: unset !important;
+            top: 25%;
+        }
+
+        img {
+            width: auto;
+            height: auto;
+            max-height: 100%;
+
+            @media (min-width: 1024px) and (max-width: 1366px) {
+                max-width: 100vw !important;
+            }
+        }
+
+        .beer-reveal {
+            overflow: hidden;
+
+            img {
+                width: auto;
+                height: auto;
+                object-fit: cover;
+                object-position: center;
+            }
+
+            &:after {
+                position: absolute;
+                content: "";
+                width: 2px;
+                height: 100%;
+                right: 0;
+                top: 0;
+                background: $white;
+            }
+        }
+
+        .beer-handle {
+            background: hsla(0,0%,100%,1) !important;
+        }
+    }
+}
+
+//ACCOUNT PAGE
+.avatar-account {
+    position: relative;
+
+    .avatar-account__cropper {
+        width: 115px;
+        height: 115px;
+        position: relative;
+        overflow: hidden;
+        border-radius: 50%;
+        margin: 0 auto;
+
+        img {
+            display: inline;
+            margin: 0 auto;
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+    }
+
+    .btn-edit {
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+//END custom for project
+
+.fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+}
+
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+}
+
+.avatar-cricle {
+    border-radius: 100%;
+    height: 45px;
+    width: 45px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    cursor: pointer;
+    border: 1px solid $secondary;
+    background-color: $primary;
+    color: $secondary;
+    overflow: hidden;
+    font-size: 20px;
+
+    &:hover {
+        text-decoration: none;
+        background-color: $secondary;
+    }
+
+    img {
+        display: inline;
+        margin: 0 auto;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+}

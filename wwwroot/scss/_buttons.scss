@@ -1,0 +1,54 @@
+.btn-circle {
+  border-radius: 100%;
+  height: 2.5rem;
+  width: 2.5rem;
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  &.btn-sm {
+    height: 1.8rem;
+    width: 1.8rem;
+    font-size: 0.75rem;
+  }
+  &.btn-lg {
+    height: 3.5rem;
+    width: 3.5rem;
+    font-size: 1.35rem;
+  }
+}
+
+.btn-hover {
+    background: none;
+    border-color: transparent;
+    color: inherit;
+
+    &:hover{
+        color: $white;
+    }
+}
+.btn-edit {
+    height: 30px;
+    width: 30px;
+    display: inline-flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-evenly;
+
+    &:hover {
+        text-decoration: none;
+    }
+
+    i {
+        font-size: 0.7em;
+    }
+}
+.btn-outline-light {
+    color: $white !important;
+    opacity: 1 !important;
+
+    &:hover {
+        background: $white !important;
+        color: $activecolor !important;
+    }
+}

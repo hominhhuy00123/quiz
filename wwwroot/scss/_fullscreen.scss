@@ -1,0 +1,14 @@
+﻿.fullscreen {
+    height: 100vh;
+    overflow: hidden;
+}
+.bgImg {
+    height: 100vh;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+
+    &.img-contain {
+        background-size: contain !important;
+    }
+}

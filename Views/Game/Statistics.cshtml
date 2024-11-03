@@ -1,0 +1,108 @@
+﻿@using Quiz.Enumerations
+@using Quiz.ViewModels
+@model StatisticsViewModel
+
+<div class="container" 
+        style="max-width: 100% !important;
+        max-height: 100% !important;
+        height: 95vh !important;
+        overflow: scroll !important;">
+    <h2>Statistics for Games Created by Admin</h2>
+
+    @foreach (var game in Model.Games)
+    {
+        <h3>@game.Title (Code: @game.GameCode)</h3>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Player</th>
+                    <th>Total Score</th>
+                    @foreach (var category in Enum.GetValues(typeof(QuestionCategory)).Cast<QuestionCategory>())
+                    {
+                        <th>@category Score</th>
+                    }
+                </tr>
+            </thead>
+            <tbody id="player-list-@game.GameCode">
+                @foreach (var player in game.Players)
+                {
+                    <tr id="player-@player.User?.Username ?? @player.PlayerName">
+                        <td>@(player.User?.Username ?? player.PlayerName)</td>
+                        <td>@player.TotalScore</td>
+                        @foreach (var category in Enum.GetValues(typeof(QuestionCategory)).Cast<QuestionCategory>())
+                        {
+                            <td>@(player.CategoryScores.ContainsKey(category) ? @player.CategoryScores[category] : 0)</td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.9/signalr.min.js"></script>
+<script type="text/javascript">
+    // Initialize SignalR connection
+    const connection = new signalR.HubConnectionBuilder().withUrl("/gameHub").build();
+
+    // Listen for score updates
+    connection.on("ReceiveScoreUpdate", function (player, score, categoryScores) {
+        const playerRow = document.getElementById(`player-${player}`);
+
+        if (playerRow) {
+            // Update the total score
+            const totalScoreCell = playerRow.querySelector("td:nth-child(2)");
+            totalScoreCell.innerText = score;
+
+            // Update each category score dynamically
+            for (const [category, categoryScore] of Object.entries(categoryScores)) {
+                const categoryIndex = getCategoryIndex(category); // Helper function to get the index for this category
+                const categoryCell = playerRow.querySelector(`td:nth-child(${categoryIndex})`);
+                if (categoryCell) {
+                    categoryCell.innerText = categoryScore;
+                }
+            }
+        } else {
+            const gameCode = "@(Model.Games.Any() ? Model.Games.First().GameCode : "")";
+            const tableBody = document.getElementById(`player-list-${gameCode}`);
+
+            // Create a new row if the player doesn't exist
+            const newRow = document.createElement("tr");
+            newRow.id = `player-${player}`;
+            let categoryCells = "";
+            for (const category of Object.values(categoryScores)) {
+                categoryCells += `<td>${category}</td>`;
+            }
+            newRow.innerHTML = `
+                    <td>${player}</td>
+                    <td>${score}</td>
+                    ${categoryCells}
+                `;
+            tableBody.appendChild(newRow);
+        }
+    });
+
+    // Listen for new players joining the game
+    connection.on("NewPlayerJoinedStats", function (playerName) {
+        toastCreate(null, `${playerName} has joined the game!`, 'success');
+    });
+
+    // Helper function to get the index of the category column
+    function getCategoryIndex(category) {
+        const categories = ["VietnameseMythology", "ChineseMythology", "GreekMythology", "IndianMythology"];
+        return categories.indexOf(category) + 3; // Starting from 3rd column after Player and Total Score
+    }
+
+    // Start connection and join statistics group
+    connection.start().then(function () {
+        const gameCodes = @Html.Raw(Json.Serialize(Model.Games.Select(g => g.GameCode).ToList()));
+        gameCodes.forEach(gameCode => {
+            connection.invoke("JoinStatisticsGroup", gameCode).catch(function (err) {
+                console.error("Error joining statistics group:", err);
+            });
+        });
+    }).catch(function (err) {
+        console.error("Connection failed: ", err);
+    });
+</script>

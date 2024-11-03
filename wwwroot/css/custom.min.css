@@ -1,0 +1,1 @@
+.disabled-z{pointer-events:none;cursor:default;background-color:#d3d3d3}.required-z::after{content:"*";color:#f4516c}

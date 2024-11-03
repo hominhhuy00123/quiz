@@ -1,0 +1,73 @@
+﻿<div class="narbar-right" id="VueHeader">
+    @if (ViewBag.IsAdmin)
+    {
+        <transition name="fade">
+            <div class="dropdown dropleft">
+            <a href="javascript:void(0)" title="My account" class="btn-top-nav dropdown-toggle avatar-cricle" data-toggle="dropdown" aria-expanded="false">
+                <span>User</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item d-flex align-items-center" href="@Url.Action("Statistics", "Game")" title="Statistics">
+                    <span class="mr-1">
+                        <img src="~/media/img/acc_icon.svg" />
+                    </span>
+                    <span class="mr-1">
+                        Statistics
+                    </span>
+                </a>
+                <a class="dropdown-item d-flex align-items-center" href="@Url.Action("Logout", "User")" title="Logout">
+                    <span class="mr-1">
+                        <img src="~/media/img/logout.svg" />
+                    </span>
+                    <span class="mr-1">
+                        Logout
+                    </span>
+                </a>
+            </div>
+        </div>
+        </transition>
+        }
+    else
+        {
+            <transition name="fade">
+                <div class="user-menu">
+                <button title="My Account" class="btn-top-nav" onclick="location.href='@Url.Action("Login", "User")'"><i class="fa fa-user"></i></button>
+                </div>
+            </transition>
+        }
+</div>
+
+
+<header class="fixed-bottom text-uppercase">
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary justify-content-between p-2">
+        <button id="nav-icon" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <a class="navbar-brand d-block d-lg-none m-auto" href="@Url.Action("Index", "Home")">
+            <img src="~/img/logo.svg" />
+        </a>
+        <div class="navbar-collapse collapse default" id="navbarResponsive">
+            <ul class="navbar-nav nav-fill w-100 align-items-center justify-content-around">
+                <li class="nav-item">
+                    @if (ViewBag.IsAdmin)
+                    {
+                        <a href="@Url.Action("Create", "Game")" class="nav-link">Tạo Phòng Mới</a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Login", "User")" class="nav-link">Tạo Phòng Mới</a>
+                    }
+
+                </li>
+                <li class="nav-item nav-item-logo d-none d-lg-block navbar-brand m-0 ">
+                    <a class="img-logo" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/media/img/logo-ss.svg" /></a>
+                </li>
+                <li >
+                    <a href="@Url.Action("Details", "Game")" class="nav-link">Tham gia trò chơi</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>

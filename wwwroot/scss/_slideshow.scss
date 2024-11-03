@@ -1,0 +1,47 @@
+.slideshow {
+    .slideshow-item_bg {
+        height: calc(100vh - 90px);
+        background-repeat: no-repeat;
+        background-size: cover !important;
+        background-position: center bottom !important;
+
+        @include media-breakpoint-down(lg) {
+            height: calc(100vh - 60px);
+        }
+
+        @include media-breakpoint-down(sm) {
+            height: calc(100vh - 40px);
+        }
+    }
+
+    .owl-nav {
+        width: 100%;
+        position: fixed !important;
+        bottom: 140px;
+
+        @include media-breakpoint-down(lg) {
+            bottom: 110px;
+        }
+
+        @include media-breakpoint-down(sm) {
+            bottom: 80px;
+        }
+    }
+}
+
+.bgImgStyle {
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    width: 100%;
+}
+
+.owl-nav {
+    button:hover {
+        background: transparent !important;
+
+        .backIcon {
+            background: $maincolor !important;
+        }
+    }
+}

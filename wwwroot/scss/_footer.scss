@@ -1,0 +1,18 @@
+.copyright {
+    line-height: 1;
+    font-size: $CPRfontsize;
+    font-family: $CPRfontfamyly;
+    font-weight: $CPRfontweight;
+    font-style: normal;
+    color: $CPRcolor;
+    background-color: $CPRBackgroundcolor;
+
+    a {
+        color: $CPRcolor;
+    }
+
+    span {
+        white-space: nowrap;
+        display: inline-block;
+    }
+}

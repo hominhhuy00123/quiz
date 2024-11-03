@@ -1,0 +1,448 @@
+﻿@using Quiz.Enumerations
+@model Quiz.Models.Game
+@{
+    var gameCode = Model.Code;
+    var userId = ViewBag.UserId;
+    var playerName = ViewBag.PlayerName;
+    var questionGroupByCategory = Model.Questions.GroupBy(q => q.Category);
+    var categoryFriendlyNames = ViewData["CategoryFriendlyNames"] as Dictionary<QuestionCategory, string>;
+}
+
+<!-- Hidden inputs to pass game details and user info to JavaScript -->
+<div>
+    <input type="hidden" id="gameCode" value="@gameCode" />
+    <input type="hidden" id="userId" value="@userId" />
+    <input type="hidden" id="playerName" value="@playerName" />
+</div>
+
+<a class="btn-back-fixed fixed-top btn-top-nav d-flex align-items-center mt-4 ml-4 pb-xl-3" href="javascript:history.back()" title="Go Back">
+    <span class="backIcon btnRounded bg-primary text-white mr-2"><i class="fa fa-arrow-left"></i></span>
+    <span class="text-body typo-secondary">Trở về trang chủ</span>
+</a>
+<div class="container-fluid d-md-flex" id="QuizPage">
+    <div class="row m-auto">
+        <div class="floor-nav col-md-4 col-lg-3 d-md-flex flex-md-column justify-content-md-center">
+            <h3>Game: @Model.Title (Code: @Model.Code)</h3>
+            <!--For menu floor-nav PC-->
+            <h3 class="d-none d-md-block letterBlock">Số học sinh hoàn thành: </h3>
+            <div class="floorbar active">
+                <div class="bar-inner">
+                    <ul class="list-unstyled h6 typo-primary">
+                        <li class="quiz-menu-item py-2 @((ViewBag.FloorLevel == "f1") ? "active" : "")" data-id="1">Việt Nam : <span id="count-VietnameseMythology">0</span> học sinh đã hoàn thành</li>
+                        <li class="quiz-menu-item py-2 @((ViewBag.FloorLevel == "f2") ? "active" : "")" data-id="2">Trung Quốc: <span id="count-ChineseMythology">0</span> học sinh đã hoàn thành</li>
+                        <li class="quiz-menu-item py-2 @((ViewBag.FloorLevel == "f3") ? "active" : "")" data-id="3">Ấn Độ: <span id="count-IndianMythology">0</span> học sinh đã hoàn thành</li>
+                        <li class="quiz-menu-item py-2 @((ViewBag.FloorLevel == "f3") ? "active" : "")" data-id="3">Hy Lạp: <span id="count-GreekMythology">0</span> học sinh đã hoàn thành</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="statusQuiz d-none d-lg-block mt-1">
+                <h3 class="h4">Keys</h3>
+                <div class="row small d-flex flex-column">
+                    <ul class="list-unstyled noteStatus">
+                        <li class="Sold mb-3">Việt Nam</li>
+                        <li class="UnderOffer mb-3">Ấn Độ</li>
+                        <li class="Available mb-3">Trung Quốc</li>
+                        <li class="Reserved mb-3">Hy Lạp</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="floorR col-md-7 col-lg-8 position-relative d-lg-flex align-items-lg-center justify-content-lg-center">
+            <div class="bkgfixed floor-stack d-md-flex align-items-md-center" id="v-floor-stack">
+                <div class="floor-stack-item">
+                    <img class="floor-img" src="~/img/Thiết kế chưa có tên (1).png" />
+                    <div class="overlays-svg svg-floorflans">
+                        <svg width="1440" height="810" viewBox="0 0 1440 810">
+                            <a class="floor-quiz lnk_detail" href="#" data-toggle="modal" data-target="#modal-VietnameseMythology">
+                                <g data-status="vn">
+                                    <polygon id="Vietnam" class="cls-1"
+                                             points="544.66 396.68 535.63 405.5 535.63 409.23 541.58 415.17 548.62 421.78 552.15 429.05 552.15 438.95 534.31 451.5 526.38 444.68 524.18 430.37 526.16 427.06 532.55 428.38 535.63 429.49 539.82 428.83 538.16 423.1 532.55 412.09 526.83 409.23 521.76 412.09 515.82 401.52 520.66 391.62 524.18 389.41 532.11 390.73 534.97 386.77 541.8 388.75 544.66 396.68" />
+                                </g>
+                            </a>
+                            <a class="floor-quiz lnk_detail" href="#" data-toggle="modal" data-target="#modal-ChineseMythology">
+                                <g data-status="cn">
+                                    <polygon id="Trung_Quoc" data-name="Trung Quoc" class="cls-1"
+                                             points="517.36 395.14 509.43 390.29 508.33 383.69 503.49 381.93 503.49 378.18 508.55 374.88 510.42 368.5 506.35 363.87 503.49 365.63 498.86 360.79 491.16 360.79 484.11 364.97 482.35 366.73 468.48 364.53 457.47 367.83 438.09 356.61 433.25 356.61 422.46 350 423.56 342.73 419.82 333.49 415.63 329.96 405.94 325.56 400.66 320.72 401.76 315.21 397.36 312.35 399.34 305.08 408.37 306.18 413.65 302.66 423.78 302.66 427.3 299.58 427.08 293.41 429.73 289.67 427.52 281.74 436.33 279.76 438.97 268.75 451.74 268.75 452.84 263.47 458.35 257.96 463.19 263.03 469.14 264.13 474.2 268.97 472.66 280.2 484.33 279.32 489.83 281.3 491.16 284.61 495.56 289.89 497.54 292.75 517.36 292.31 533.98 298.7 545.1 294.29 556.99 293.41 565.58 289.67 565.58 279.76 583.63 278.22 591.78 270.07 600.59 272.5 603.89 272.5 603.89 268.75 598.83 262.15 594.64 259.73 589.36 265.67 583.41 264.79 583.85 257.96 586.72 257.96 586.27 253.12 597.73 253.12 600.15 248.28 605.87 243.21 603.01 236.61 604.99 231.54 615.34 229.56 626.79 232.2 632.29 237.49 637.14 253.56 645.73 254.44 652.33 259.06 654.31 265.01 660.04 265.01 668.84 260.83 670.83 266.55 665.54 271.39 665.54 276.24 662.68 277.12 660.7 279.98 653.87 278.88 652.77 286.15 650.79 291 639.78 297.6 631.85 297.38 621.73 305.74 609.39 313.67 607.41 313.45 608.95 305.74 606.75 304.86 601.91 306.84 597.28 308.83 595.96 312.35 590.9 314.55 590.9 318.29 594.86 319.62 597.28 322.48 603.45 321.38 608.73 320.5 611.82 321.38 611.6 324.24 606.97 325.78 603.23 326.66 599.49 329.08 598.16 332.83 601.91 337.01 605.43 343.83 607.19 351.32 607.63 356.17 606.75 364.53 604.11 367.83 601.47 373.34 594.86 381.05 589.8 384.35 581.43 389.41 573.06 391.39 563.6 394.04 558.53 399.1 556.55 400.86 542.68 398.88 544.66 396.68 541.8 388.75 534.97 386.77 532.11 390.73 524.18 389.41 517.36 395.14" />
+                                </g>
+                            </a>
+                            <a class="floor-quiz lnk_detail" href="#" data-toggle="modal" data-target="#modal-IndianMythology">
+                                <g data-status="in">
+                                    <polygon id="Ando" class="cls-1"
+                                             points="405.94 325.56 415.63 329.96 419.82 333.49 423.56 342.73 422.46 350 433.25 356.61 438.09 356.61 457.47 367.83 468.48 364.53 482.35 366.73 491.16 360.79 498.86 360.79 503.49 365.63 502.17 370.92 498.64 370.92 494.9 376.2 492.26 384.13 485.87 385.45 485.21 390.95 483.23 394.92 479.49 397.56 475.96 392.5 470.68 391.17 467.6 394.26 457.69 394.26 452.18 400.86 433.25 415.17 433.25 419.14 424.44 422 425.98 427.73 423.56 443.8 414.75 451.5 413.87 455.03 407.05 449.08 405.94 444.02 403.74 438.29 399.78 437.19 399.78 431.47 393.39 423.98 393.39 403.94 389.65 396.9 383.71 399.32 374.24 394.26 379.96 391.17 379.08 388.97 374.24 390.29 374.24 385.67 385.47 383.25 385.91 379.5 379.74 373.34 380.62 367.83 387.67 367.39 393.17 357.71 397.36 355.06 401.1 352.64 401.54 348.46 402.42 345.16 400.88 342.29 400.44 332.38 405.94 325.56" />
+                                </g>
+                            </a>
+                            <a class="floor-quiz lnk_detail" href="#" data-toggle="modal" data-target="#modal-GreekMythology">
+
+                                <g data-status="gr">
+                                    <polygon id="Hylap" class="cls-1"
+                                             points="169.91 303.98 160.22 310.81 161.32 315.21 166.83 315.21 168.59 317.85 163.96 318.95 166.16 321.82 166.61 325.56 170.79 327.32 170.79 320.72 170.79 318.95 174.97 320.5 174.97 317.85 169.69 312.57 170.35 309.49 172.55 309.05 173.65 310.81 176.95 309.05 176.95 306.18 180.7 305.3 188.84 303.98 188.84 301.56 184.88 300.24 172.11 302 169.91 303.98" />
+                                </g>
+                            </a>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@foreach (var categoryGroup in questionGroupByCategory)
+{
+    var friendlyName = categoryFriendlyNames[categoryGroup.Key];
+    <div class="modal fade" id="modal-@categoryGroup.Key" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content mt-12">
+                <div class="modal-header mb-4">
+                    <h3 class="modal-title mt-5 text-center w-100">
+                        @friendlyName  <span class="timer-text" id="timer-@categoryGroup.Key">Thời gian còn lại: 03:00</span>
+                    </h3>
+                   
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="form-@categoryGroup.Key" method="post" action="@Url.Action("SubmitAnswers", "Game")">
+                        @foreach (var question in categoryGroup)
+                        {
+                            <div class="question-container mb-4">
+                                <h4>@question.Text</h4>
+
+                                @* Hidden input for QuestionId *@
+                                <input type="hidden" name="QuestionId" value="@question.Id" />
+
+                                @* Render each answer as a radio button *@
+                                @foreach (var answer in question.Answers)
+                                {
+                                    <div class="form-check">
+                                        <input type="radio" name="answers[@question.Id]" value="@answer.Text" class="form-check-input" />
+                                        <label class="form-check-label">@answer.Text</label>
+                                    </div>
+                                }
+                            </div>
+                        }
+                        <div class="text-right mt-4">
+                            <button type="button" class="btn btn-primary" onclick="submitAndShowNext('@categoryGroup.Key', getNextModalId('@categoryGroup.Key'))">
+                                Gửi câu trả lời
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+<div class="modal fade" id="completedModal" tabindex="-1" role="dialog" aria-labelledby="completedModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="completedModalLabel">Category Completed</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                You have already completed this category.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Styles {
+    <style>
+        html, body {
+            overflow: hidden;
+        }
+
+        body {
+            background: #E4EBCA;
+        }
+
+        polygon {
+            animation-name: opacityPolygon;
+            animation-duration: 1.5s;
+            animation-iteration-count: infinite;
+            animation-direction: alternate-reverse;
+        }
+
+        @@keyframes opacityPolygon {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-dialog {
+            margin: 10vh auto 0px auto
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+
+            .modal-header .close {
+                position: absolute;
+                right: 15px;
+                top: 0;
+            }
+
+        .timer-text {
+            display: block; /* Make it appear on a new line */
+            font-size: 0.6em; /* Adjust the font size to be smaller */
+            text-align: center; /* Center it below the title */
+            margin-top: 5px; /* Add some spacing above */
+        }
+    </style>
+}
+@section Scripts {
+
+    <!-- Add the SignalR library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.9/signalr.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            const completedCategories = JSON.parse(localStorage.getItem('completedCategories') || '[]');
+            completedCategories.forEach(category => {
+                const link = $(`a[data-target="#modal-${category}"]`);
+                link.addClass('submitted').attr('data-target', '#completedModal');
+            });
+        });
+
+        function markAsSubmitted(category) {
+            // Mark in local storage
+            const completedCategories = JSON.parse(localStorage.getItem('completedCategories') || '[]');
+            if (!completedCategories.includes(category)) {
+                completedCategories.push(category);
+                localStorage.setItem('completedCategories', JSON.stringify(completedCategories));
+            }
+
+            // Update the UI
+            const link = $(`a[data-target="#modal-${category}"]`);
+            link.addClass('submitted').attr('data-target', '#completedModal');
+        }
+        const TIMER_DURATION = 180; // Timer duration in seconds
+
+        function startTimer(categoryKey) {
+            let timeRemaining = TIMER_DURATION;
+            const timerDisplay = document.getElementById(`timer-${categoryKey}`);
+
+            // Clear any existing interval to avoid multiple timers
+            if (timerDisplay.countdown) {
+                clearInterval(timerDisplay.countdown);
+            }
+
+            timerDisplay.countdown = setInterval(() => {
+                const minutes = Math.floor(timeRemaining / 60);
+                const seconds = timeRemaining % 60;
+                timerDisplay.textContent = `Thời gian còn lại: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+                if (timeRemaining <= 0) {
+                    clearInterval(timerDisplay.countdown);
+                    submitAndShowNext(categoryKey, getNextModalId(categoryKey)); // Auto-submit and close modal
+                }
+
+                timeRemaining--;
+            }, 1000);
+        }
+
+        // Attach event to modals, but start the timer only for relevant ones
+        $('.modal').one('shown.bs.modal', function (e) {
+            const modalId = $(this).attr('id');
+
+            // Apply the timer only if the modal ID starts with 'modal-' (indicating a quiz category modal)
+            if (modalId.startsWith('modal-')) {
+                const categoryKey = modalId.replace('modal-', '');
+                startTimer(categoryKey);
+            }
+        });
+
+
+    </script>
+
+
+    <script>
+        $('.btn-name-level').on('click', function (e) {
+            e.stopPropagation();
+            $('.ploorflan-list').toggle();
+        });
+        $('.quiz-menu-item').on('click', function () {
+            var selectValue = $(this).text();
+            $(this).parents('.dropdown-floor-nav').find('.btn-name-level').text(selectValue);
+            $('.ploorflan-list').toggle();
+        })
+    </script>
+    <script>
+        var wTitleBuiding = $(".titleBuiding").width();
+        if ($(window).width() > 767) {
+            $('.titleBuiding').css('margin-left', -(wTitleBuiding / 2));
+        }
+    </script>
+    <script>
+        if ($(window).width() > 992) {
+            $(".statusQuiz").css("bottom", $("header").outerHeight());
+        }
+    </script>
+    <script>
+        var a = $('.btn-top-nav').outerHeight();
+        var b = $('header').outerHeight();
+        console.log(a);
+        //if ($(window).width() >=768) {
+        $('#QuizPage').height($(window).height() - a - b);
+        $('#QuizPage').css({ 'margin-top': a + 15, 'margin-bottom': b + 15 });
+        //}
+
+        $(document).ready(function () {
+            var txtcode = $('.letterBlock').html();
+            if ((txtcode === 'a')) {
+                $('.letterBlock').parent('.floor-nav').siblings().find('.floorR').css('align-items', 'end !important');
+                $('.floor-stack').addClass('rotate90');
+                $('.floorR').removeClass('justify-content-lg-center align-items-lg-center');
+                $('.floorR').addClass('align-items-lg-start justify-content-lg-start');
+                $('.fixed-bottom.statusQuiz').css('padding-top', '1rem');
+                //if ($(window).width() >=768) {
+                $('#QuizPage').height($(window).height() - a - b);
+                $('#QuizPage .floor-stack').css({
+                    'margin-top': b - 30,
+                    'padding-top': a,
+                });
+                $('#QuizPage .floorR').css({
+                    'margin-top': a + 20,
+                    'margin-bottom': b + 15
+                });
+                //}
+            }
+        })
+    </script>
+
+    <script>
+        function submitAndShowNext(categoryKey, nextModalId) {
+            // Retrieve game code, user ID, and player name from ViewBag or form elements dynamically
+            const gameCode = '@gameCode'; // assuming this is set in your controller
+            const userId = '@userId';
+            const playerName = '@playerName';
+            // Check if the user is a guest (null userId indicates a guest)
+            const isGuest = userId === "null";
+            const answers = [];
+            // Collect answers from the DOM based on selected options within the category
+            $(`#form-${categoryKey} div.question-container`).each(function () {
+                const questionId = $(this).find('input[name="QuestionId"]').val();
+                const selectedAnswer = $(this).find('input[type="radio"]:checked');
+
+                if (selectedAnswer.length > 0) {
+                    const answerText = selectedAnswer.val();
+                    answers.push({ QuestionId: questionId, AnswerText: answerText });
+                }
+            });
+
+            $.ajax({
+                url: '/Game/SubmitAnswers',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    code: $('#gameCode').val(),
+                    userId: $('#userId').val() || null,
+                    playerName: $('#playerName').val() || "Guest",
+                    answers: answers,
+                    category: categoryKey // Include the current category
+                }),
+                success: function (response) {
+                    $(`#modal-${categoryKey}`).modal('hide');
+
+                    // Remove lingering modal backdrop if any
+                    $('.modal-backdrop').remove();
+                    $('body').removeClass('modal-open'); // Reset body overflow
+                    markAsSubmitted(categoryKey);
+                },
+                error: function (error) {
+                    console.error("Error submitting answers:", error);
+                }
+            });
+
+        }
+
+        function getNextModalId(currentModalId) {
+            const categories = ["VietnameseMythology", "ChineseMythology", "GreekMythology", "IndianMythology"];
+            const currentIndex = categories.indexOf(currentModalId);
+            return currentIndex >= 0 && currentIndex < categories.length - 1
+                ? "modal-" + categories[currentIndex + 1]
+                : null;
+        }
+
+
+        // Create a connection to the GameHub
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/gameHub")
+            .build();
+
+        // Start the connection
+        connection.start().then(() => {
+            connection.invoke("JoinGameGroup", '@gameCode', '@playerName')
+                .catch(function (err) {
+                    console.error("Error joining game group:", err.toString());
+                });
+
+        }).catch(err => console.error("Connection failed: ", err));
+
+
+        // Listen for the NewPlayerJoined event
+        connection.on("NewPlayerJoined", function (newPlayerName) {
+            // Show a toast notification
+            toastCreate(null, newPlayerName + "đã tham gia", 'success');
+        });
+
+
+        // // Listen for real-time submissions
+        // connection.on("PlayerSubmitted", function (playerName, category) {
+        //     toastCreate(null, `${playerName} has completed ${category}!`, 'success');
+        // });
+
+        const completionCounts = {
+            VietnameseMythology: 0,
+            ChineseMythology: 0,
+            GreekMythology: 0,
+            IndianMythology: 0
+        };
+
+        const categoryFriendlyNames = {
+            "VietnameseMythology": "Thần thoại Việt Nam",
+            "ChineseMythology": "Thần thoại Trung Quốc",
+            "GreekMythology": "Thần thoại Hy Lạp",
+            "IndianMythology": "Thần thoại Ấn Độ"
+        };
+
+        // Listen for the 'PlayerCompletedCategory' event
+        connection.on("PlayerCompletedCategory", function (playerName, category) {
+            // Increment the count for the category
+            if (completionCounts[category] !== undefined) {
+                completionCounts[category]++;
+            }
+
+            // Display an updated count on the UI
+            const countElement = document.getElementById(`count-${category}`);
+            if (countElement) {
+                countElement.textContent = completionCounts[category];
+            } else {
+                console.error(`Element with ID count-${category} not found!`);
+            }
+
+            const friendlyName = categoryFriendlyNames[category] || category;
+
+            // Optionally, display a toast notification
+            toastCreate(null, `${playerName} đã hoàn thành </br> ${friendlyName}`, 'success');
+        });
+
+    </script>
+
+}

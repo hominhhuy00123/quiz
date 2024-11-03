@@ -1,0 +1,25 @@
+﻿@model ResultsViewModel
+
+<div class="container">
+    <h2>Kết quả trò chơi - Mã game: @Model.GameCode</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Chủ đề</th>
+                <th>Điểm</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var categoryScore in Model.CategoryScores)
+            {
+                <tr>
+                    <td>@categoryScore.Key</td>
+                    <td>@categoryScore.Value</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h3>Tổng điểm: @Model.TotalScore</h3>
+</div>

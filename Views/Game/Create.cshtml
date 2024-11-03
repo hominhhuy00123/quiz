@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "Create Game";
+}
+
+<div class="container">
+    <h2>Create a New Game</h2>
+
+    <!-- Display the generated game code -->
+    <p><strong>Game Code: </strong>@ViewBag.GameCode</p>
+
+    <!-- Form to submit the game details -->
+    <form method="post" action="@Url.Action("Create", "Game")">
+        <!-- Pass the generated game code in a hidden input -->
+        <input type="hidden" name="code" value="@ViewBag.GameCode" />
+
+        <div class="form-group">
+            <label for="title">Game Title</label>
+            <input type="text" class="form-control" id="title" name="title" placeholder="Enter the game title" required />
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3">Save Game</button>
+    </form>
+</div>

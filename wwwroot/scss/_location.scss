@@ -1,0 +1,155 @@
+.cover-location {
+    @media (min-width: 992px) {
+        width: 73%;
+        height: 100%;
+        left: 50%;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        background: transparent;
+    }
+}
+
+.northWest, .southWest {
+    width: 100px;
+}
+.page-location {
+    position: relative;
+    height: 100vh;
+
+    .image-location {
+        opacity: 0;
+
+        &.active {
+            opacity: 1;
+            z-index: 2;
+        }
+    }
+}
+.image-location {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0;
+    background: $green-100 !important;
+}
+.poi-options {
+    &.togglecollapse {
+        transform: translateX(-82%);
+
+        i {
+            transform: rotate(180deg);
+        }
+    }
+
+    z-index: 20;
+    position: fixed;
+    width: 40vh;
+    left: 0;
+    padding: 20px;
+    background-color: transparent;
+    color: $white;
+    transition: all 0.5s ease;
+
+    @media (max-width: 991px) and (orientation: landscape) {
+        width: 65vh;
+    }
+
+    .wraper {
+        overflow-y: auto;
+        background-color: $inactivecolor;
+        color: $white;
+        opacity: .9;
+        width: 40vh;
+        left: 0;
+        position: absolute;
+        top: 50%;
+        transform: translate(0, -50%);
+        border-radius: 0 30px 30px 0;
+
+        @media (max-width: 991px) and (orientation: landscape) {
+            width: 65vh;
+        }
+
+        ul {
+            list-style: none;
+            padding: 30px;
+
+            li {
+                color: #fff;
+                font-size: 1.2em;
+                line-height: 2.5;
+            }
+        }
+    }
+
+    .js_hiden_options {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        font-size: 20px;
+        background-color: $maincolor;
+        color: $white;
+        right: -20px;
+        position: absolute;
+        top: 50%;
+        margin-top: -20px;
+        margin-left: 30px;
+        border: 0;
+        text-align: center;
+        white-space: normal;
+        padding: 15px 8px;
+        writing-mode: vertical-rl;
+        z-index: 11;
+
+        &:hover {
+            color: $activecolor;
+            text-decoration: none;
+        }
+    }
+
+    .el-checkbox.el-checkbox-xm, .el-radio.el-radio-xm, .el-switch.el-switch-xm {
+        font-size: 60%;
+    }
+
+    .el-checkbox label span, .el-radio label span {
+        padding-left: 2em;
+    }
+
+    .el-switch span.ml-2 {
+        cursor: pointer;
+        font-size: 150%;
+    }
+
+    .el-switch .el-switch-style {
+        border: 1px #fff solid;
+        height: 1.5em;
+        width: 1.5em;
+        background: transparent;
+        -webkit-border-radius: 0;
+        border-radius: 0;
+        position: relative;
+        top: 3px;
+    }
+
+    .el-switch .el-switch-style:before {
+        background-color: transparent;
+    }
+
+    .el-switch > input[type=checkbox]:checked + .el-switch-style {
+        background-color: transparent;
+    }
+
+    .el-switch > input[type=checkbox]:checked + .el-switch-style:before {
+        content: '\2714';
+        height: 1.6em;
+        width: 1.6em;
+        position: absolute;
+        background-color: transparent;
+        top: -5px;
+        left: 2px;
+    }
+}

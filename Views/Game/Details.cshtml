@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Join Game";
+}
+<div class="container row justify-content-center align-items-center text-cener  mt-5 mx-2 mt-xl-5 mt-xs-5" style="height: 70vh;">
+
+
+
+    <form asp-action="JoinGame" method="post" class="col-xl-3 col-md-6 text-center">
+        <h2 class="mb-5">Tham gia trò chơi</h2>
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="alert alert-danger">
+                <p>@ViewData.ModelState.Values.SelectMany(v => v.Errors).FirstOrDefault()?.ErrorMessage</p>
+            </div>
+        }
+        <div class="form-group text-left">
+            <label for="code">Nhập code tham gia trò chơi: </label>
+            <input type="text" name="code" id="code" class="form-control" required />
+        </div>
+        <div class="form-group text-left">
+            <label for="playerName">Nhập tên của bạn: </label>
+            <input type="text" name="playerName" id="playerName" class="form-control" required />
+        </div>
+        <div class="form-group text-right">
+            <button type="submit" class="btn btn-primary">Tham gia</button>
+        </div>
+        
+    </form>
+</div>

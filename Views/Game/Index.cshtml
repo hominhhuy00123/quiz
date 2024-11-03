@@ -1,0 +1,9 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1>Quiz Game</h1>
+    <button onclick="location.href='@Url.Action("CreateGame")'" class="btn btn-primary">Create Game</button>
+    <button onclick="location.href='@Url.Action("JoinGame")'" class="btn btn-success">Join Game</button>
+</div>

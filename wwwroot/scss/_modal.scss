@@ -1,0 +1,49 @@
+.modal-header {
+    border-bottom: none;
+
+    .close {
+        z-index: 9999;
+        color: $maincolor;
+        font-size: 1rem !important;
+        opacity: 1 !important;
+        border-radius: 10px !important;
+        border: 2px $maincolor solid !important;
+        right: 15px;
+        position: absolute;
+        padding: 3px 7px;
+        margin: 1rem 1rem 1rem auto !important;
+        text-shadow: unset;
+    }
+}
+.modal-content {
+    border-radius: $border-radius-tlr;
+    border: unset !important;
+}
+.modal-bottom-cs {
+    position: absolute;
+    width: 100%;
+    margin: 0;
+    left: 50%;
+    transform: translate(-50%, 0%) !important;
+
+    @media (max-width: 991px) and (min-aspect-ratio: 8/5) {
+        bottom: 15px !important
+    }
+}
+
+.scrollBoxForm {
+    max-height: 42vh;
+    overflow: auto;
+
+    @media (max-width: 991px)and (orientation: landscape) {
+        max-height: unset !important;
+        overflow: unset;
+        
+    }
+}
+@media (max-width: 991px)and (orientation: landscape) {
+    .modal-dialog-scrollable .modal-body {
+        overflow: auto !important;
+        max-height: calc(100vh - 120px);
+    }
+}

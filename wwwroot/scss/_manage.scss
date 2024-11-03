@@ -1,0 +1,191 @@
+.manage-sidebar {
+    width: 20rem;
+    min-height: 100vh;
+
+    .sidebar-brand {
+        height: 4.375rem;
+        text-align: center;
+        width: 100%;
+    }
+}
+.manage-content {
+    background-color: #f8f9fc;
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+
+    .content {
+        flex: 1 0 auto;
+    }
+
+    .avatar-cricle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        font-size: 20px;
+    }
+
+    .sub-user, .navbar {
+        .name, role {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+        }
+    }
+
+    .search-form {
+        position: relative;
+        max-width: 100%;
+        //width: 350px;
+        border-radius: 10px;
+
+        i {
+            position: absolute;
+            left: 15px;
+            font-size: 15px;
+        }
+
+        .btn {
+            position: absolute;
+            right: 0;
+        }
+
+        input {
+            background: transparent;
+            border: 0;
+            width: 100%;
+            border-radius: 50px;
+            padding-left: 50px;
+        }
+    }
+
+    .fav-item {
+
+        .card-body {
+            padding: 0 30px;
+
+            .inner {
+                padding: 20px 20px 10px 20px;
+                background-color: #F1F1F5;
+            }
+        }
+
+        .card-footer {
+            padding: 20px 50px;
+            margin-top: -20px;
+
+            .btn {
+                box-shadow: 5px 10px 15px rgba(227, 230, 236, 0.9);
+            }
+        }
+    }
+
+    .doc-item {
+        .action {
+            margin-top: -20px;
+
+            .left {
+                z-index: 1;
+                background-color: #fff;
+                padding: 5px 10px;
+                box-shadow: 5px 10px 15px rgba(227, 230, 236, 0.9);
+            }
+
+            .right {
+                z-index: 1;
+
+                .btn {
+                    box-shadow: 5px 10px 15px rgba(227, 230, 236, 0.9);
+                }
+            }
+        }
+    }
+
+    .radius {
+        border-radius: 12px;
+    }
+}
+/*CHECKBOX*/
+.styled-checkbox {
+    position: absolute;
+    opacity: 0;
+}
+.styled-checkbox + label {
+    position: relative;
+    cursor: pointer;
+    padding: 0;
+    color: #0F302B;
+    -webkit-user-select: none; /* Chrome/Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+ */
+    -o-user-select: none;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+
+    &:before {
+        content: '';
+        display: inline-block;
+        vertical-align: text-top;
+        width: 25px;
+        height: 25px;
+        background: white;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        margin-right:7px;
+    }
+}
+
+.styled-checkbox:hover + label:before {
+    background: $primary;
+}
+
+.styled-checkbox:focus + label:before {
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.12);
+}
+
+.styled-checkbox:checked + label {
+    font-weight: 700;
+
+    &:before {
+        background: $primary;
+    }
+
+    &:after {
+        content: '';
+        position: absolute;
+        left: 7px;
+        top: 11px;
+        background: white;
+        width: 2px;
+        height: 2px;
+        box-shadow: 2px 0 0 white, 4px 0 0 white, 4px -2px 0 white, 4px -4px 0 white, 4px -6px 0 white, 4px -8px 0 white;
+        transform: rotate(45deg);
+    }
+}
+
+.styled-checkbox:disabled + label {
+    color: #b8b8b8;
+    cursor: auto;
+
+    &:before {
+        box-shadow: none;
+        background: #ddd;
+    }
+
+    &:after {
+        content: '';
+        position: absolute;
+        left: 8px;
+        top: 12px;
+        background: white;
+        width: 2px;
+        height: 2px;
+        box-shadow: 2px 0 0 white, 4px 0 0 white, 4px -2px 0 white, 4px -4px 0 white, 4px -6px 0 white, 4px -8px 0 white;
+        transform: rotate(45deg);
+    }
+}

@@ -1,0 +1,112 @@
+// Grayscale Text Utilities
+
+.text-xs {
+  font-size: .7rem;
+}
+
+.text-lg {
+  font-size: 1.2rem;
+}
+
+.text-gray-100 {
+  color: $gray-100 !important;
+}
+
+.text-gray-200 {
+  color: $gray-200 !important;
+}
+
+.text-gray-300 {
+  color: $gray-300 !important;
+}
+
+.text-gray-400 {
+  color: $gray-400 !important;
+}
+
+.text-gray-500 {
+  color: $gray-500 !important;
+}
+
+.text-gray-600 {
+  color: $gray-600 !important;
+}
+
+.text-gray-700 {
+  color: $gray-700 !important;
+}
+
+.text-gray-800 {
+  color: $gray-800 !important;
+}
+
+.text-gray-900 {
+  color: $gray-900 !important;
+}
+
+.icon-circle {
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.h7 { @include font-size($h7-font-size); }
+.typo-primary {
+  font-family: $typo-primary;
+}
+.typo-secondary {
+  font-family: $typo-secondary;
+}
+.typo-spacing-2 {
+  letter-spacing: $typo-spacing-2;
+}
+.typo-spacing-3 {
+  letter-spacing: $typo-spacing-3;
+}
+@include media-breakpoint-down(xl) {
+    h1, .h1 {
+        font-size: $h1-font-size-xl;
+    }
+
+    h2, .h2 {
+        font-size: $h2-font-size-xl;
+    }
+}
+@include media-breakpoint-down(lg) {
+    h1, .h1 {
+        font-size: $h1-font-size-lg;
+    }
+
+    h2, .h2 {
+        font-size: $h2-font-size-lg;
+    }
+}
+@include media-breakpoint-down(md) {
+    h1, .h1 {
+        font-size: $h1-font-size-md;
+    }
+
+    h2, .h2 {
+        font-size: $h2-font-size-md;
+    }
+}
+@include media-breakpoint-down(sm) {
+    h1, .h1 {
+        font-size: $h1-font-size-sm;
+    }
+
+    h2, .h2 {
+        font-size: $h2-font-size-sm;
+    }
+}
+@include media-breakpoint-up(xl) {
+    h1, .h1 {
+        font-size: $h1-font-size;
+    }
+
+    h2, .h2 {
+        font-size: $h2-font-size;
+    }
+}
